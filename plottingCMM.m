@@ -7,7 +7,7 @@ clc
 clearvars -except raw_data
 
 
-n = 5;  %resolution of meshgrid
+n = 1;  %resolution of meshgrid
 
 %Extract X, Y, Z as arrays from raw_data matrix
 X = abs(raw_data(:,1));
@@ -22,7 +22,7 @@ yRange = min(Y)+n:n:max(Y)-n;
 [Xq,Yq] = meshgrid(xRange, yRange);
 
 %Interpolate Z values on meshgrid
-Zq = griddata(X,Y,Z,Xq,Yq);
+Zq = griddata(X,Y,Z,Xq,Yq, 'cubic');
 
 %Plot surface
 figure(1)
