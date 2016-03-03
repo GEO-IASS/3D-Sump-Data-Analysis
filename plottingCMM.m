@@ -6,7 +6,6 @@
 clc
 clearvars -except raw_data
 
-
 n = 1;  %resolution of meshgrid
 
 %Extract X, Y, Z as arrays from raw_data matrix
