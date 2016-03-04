@@ -1,0 +1,7 @@
+classdef dataset
+   properties
+       type
+       data
+   end
+end
+
