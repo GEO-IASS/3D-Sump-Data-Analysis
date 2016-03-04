@@ -7,9 +7,4 @@ path = 'data\';
 file = 'WV5.csv';
 filename = strcat(path, file);
 
-dimension = fileReadCMM(filename);
-
-figure(1)
-output3D(dimension(1).data, 'Spread Gap', 'surf', 30)
-
-%add additional outputs here
+WV5 = partData(filename);
