@@ -1,14 +1,15 @@
-function output3D(data, name, type)
+function output3D(data, name, type, res)
     X = abs(data(:,1));
     Y = abs(data(:,2));
     Z = data(:,3);
 
-    n = (max(X)-min(X))/20;
-    m = (max(Y)-min(Y))/20;
+    n = (max(X)-min(X))/res;
+    m = (max(Y)-min(Y))/res;
 
     %Define meshgrid ranges
     xRange = min(X)+n:n:max(X)-n;
     yRange = min(Y)+m:m:max(Y)-m;
+    zRange = [0.95*min(Z) 1.05*max(Z)];
 
     %Define meshgrid matrices
     [Xq,Yq] = meshgrid(xRange, yRange);
@@ -22,14 +23,21 @@ function output3D(data, name, type)
         set(gcf,'Renderer','painters')
         surf(Xq, Yq, Zq);
         title(name)
-        zlim([35 40])
-    else
+        zlim(zRange)
+    else if strcmp(type,'contour')
         %Plot contour
         figure(2)
         set(gcf,'Renderer','painters')
         contourf(Xq, Yq, Zq, 50);
         title(name)
-        zlim([35 40])
+        zlim(zRange)
+    else
+       %Plot mesh
+        figure(2)
+        set(gcf,'Renderer','painters')
+        mesh(Xq, Yq, Zq);
+        title(name)
+        zlim(zRange) 
     end
 end
 
