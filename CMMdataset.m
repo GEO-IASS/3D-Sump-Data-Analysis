@@ -31,21 +31,18 @@ classdef CMMdataset
 
             if strcmp(type,'surf')
                 %Plot surface
-                figure(1)
                 set(gcf,'Renderer','painters')
                 surf(Xq, Yq, Zq);
                 title(name)
                 zlim(zRange)
             elseif strcmp(type,'contour')
                 %Plot contour
-                figure(2)
                 set(gcf,'Renderer','painters')
                 contourf(Xq, Yq, Zq, 50);
                 title(name)
                 zlim(zRange)
             else
                %Plot mesh
-                figure(2)
                 set(gcf,'Renderer','painters')
                 mesh(Xq, Yq, Zq);
                 title(name)
