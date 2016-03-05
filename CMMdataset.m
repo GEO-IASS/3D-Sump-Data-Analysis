@@ -10,43 +10,57 @@ classdef CMMdataset
            Obj.data = dataIn;
        end
        
-       function output3D(Obj, name, type, res)
-            X = abs(Obj.data(:,1));
-            Y = abs(Obj.data(:,2));
-            Z = Obj.data(:,3);
-
-            n = (max(X)-min(X))/res;
-            m = (max(Y)-min(Y))/res;
+       function output3D(Obj, plotOutput, type, res)
+            switch plotOutput
+                case 'Y'    %make Y the dependant variable to plot
+                    U = Obj.data(:,1);
+                    V = Obj.data(:,3);
+                    W = Obj.data(:,2);    
+                case 'X'    %make X the dependant variable to plot
+                    U = Obj.data(:,3);
+                    V = Obj.data(:,1);
+                    W = Obj.data(:,2);
+                otherwise   %make Z the default dependant variable to plot
+                    U = Obj.data(:,1);
+                    V = Obj.data(:,2);
+                    W = Obj.data(:,3);   
+            end
+            
+            n = (max(U)-min(U))/res;
+            m = (max(V)-min(V))/res;
+            wMin = min(W);
+            wMax = max(W);
 
             %Define meshgrid ranges
-            xRange = min(X)+n:n:max(X)-n;
-            yRange = min(Y)+m:m:max(Y)-m;
-            zRange = [0.95*min(Z) 1.05*max(Z)];
+            uRange = min(U)+n:n:max(U)-n;
+            vRange = min(V)+m:m:max(V)-m;
+            wScale = abs(wMax - wMin)*1.2;
+            wRange = [wMin-wScale wMax+wScale];
 
             %Define meshgrid matrices
-            [Xq,Yq] = meshgrid(xRange, yRange);
+            [Xq,Yq] = meshgrid(uRange, vRange);
 
             %Interpolate Z values on meshgrid
-            Zq = griddata(X,Y,Z,Xq,Yq, 'cubic');
+            Zq = griddata(U,V,W,Xq,Yq, 'cubic');
 
             if strcmp(type,'surf')
                 %Plot surface
                 set(gcf,'Renderer','painters')
                 surf(Xq, Yq, Zq);
-                title(name)
-                zlim(zRange)
+                title(Obj.name)
+                zlim(wRange)
             elseif strcmp(type,'contour')
                 %Plot contour
                 set(gcf,'Renderer','painters')
                 contourf(Xq, Yq, Zq, 50);
-                title(name)
-                zlim(zRange)
+                title(Obj.name)
+                zlim(wRange)
             else
                %Plot mesh
                 set(gcf,'Renderer','painters')
                 mesh(Xq, Yq, Zq);
-                title(name)
-                zlim(zRange) 
+                title(Obj.name)
+                zlim(wRange) 
             end
 
        end
