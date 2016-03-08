@@ -21,29 +21,26 @@ for i = 1:n
         case 'pointcloud'
             numPlanes = numPlanes + 1;
         case 'line'
-            numLines = numLines + 1;
+            numLines = numPlanes + 1;
         case 'singleparameter'
     end
 end
 
 planePlot = ceil(numPlanes/3);
-linePlot = ceil(numLines/2);
+linePlot = ceil(numLines/3);
 k = 0;
-j = 0;
 
 for i = 1:n
+    
     %switch .dataset(i).type
     switch lower(printer.dataset(i).type)
         case 'pointcloud'
-            figure(1)
             k=k+1;
-            subplot(3, planePlot, k)
+            subplot(3, p, k)
             printer.dataset(i).autoPlane
-            colorbar
         case 'line'
-            figure(2)
-            j=j+1;
-            subplot(3, linePlot, j)
+            k=k+1;
+            subplot(3, PlotX, k)
             printer.dataset(i).autoLine
         case 'singleparameter'
             %Add to sumTable instance

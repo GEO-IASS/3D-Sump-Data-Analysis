@@ -55,7 +55,9 @@ classdef CMMdataset
             elseif strcmp(type,'contour')
                 %Plot contour
                 set(gcf,'Renderer','painters')
-                contourf(Xq, Yq, Zq, 50);
+                [s,p] = contourf(Xq, Yq, Zq, 30);
+                set(p, 'LineStyle', ':')
+                set(p, 'LineWidth', 0.1)
                 title(Obj.name)
                 zlim(wRange)
             else
@@ -94,9 +96,9 @@ classdef CMMdataset
             wRange = [wMin-wScale wMax+wScale];
             
             plot(V, W, 'k-o')
+            title(Obj.name)
             ylim(wRange)
-            
-            
+            grid on
         end
         function autoPlane(Obj)
             X = Obj.data(:,1);
@@ -115,7 +117,7 @@ classdef CMMdataset
                 plotOutput = 'Z';
             end
             
-            Obj.output3D(plotOutput, 'surf', 30)
+            Obj.output3D(plotOutput, 'contour', 30)
             
         end
         function autoLine(Obj)
