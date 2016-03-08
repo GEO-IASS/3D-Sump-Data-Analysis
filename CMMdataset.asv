@@ -132,29 +132,18 @@ classdef CMMdataset
                     dependent = 'Y';
                     independant = 'Z';
                 else
-                    dependent = 'Z';
-                    independent = 'Y';
+                    dependant = 'Z';
+                    independant = 'Y';
                 end
             elseif (Yvar < Xvar) && (Yvar < Zvar)
                 if (Xvar < Zvar)
-                    dependent = 'X';
-                    independent = 'Z';
+                    
                 else
-                    dependent = 'Z';
-                    independent = 'X';
+                    
                 end
             else
-                if (Xvar < Yvar)
-                    dependent = 'X';
-                    independent = 'Y';
-                else
-                    dependent = 'Y';
-                    independent = 'X';
-                end
+                
             end
-            
-            Obj.output2D(dependent, independent)
-            
         end
    
    end

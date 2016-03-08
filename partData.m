@@ -1,10 +1,11 @@
 classdef partData
     %PARTDATA Summary of this class goes here
-    %   Detailed explanation goes here
+    %Detailed explanation goes here
     
     properties
         SN
         dataset
+        sumtable
     end
     
     methods
@@ -45,7 +46,8 @@ classdef partData
                             if isnan(M(i,j))
                                 collectrow = 0;
                             else
-                                dimension(n).data(z,j) = M(i,j);
+                                val = M(i,j)+rand()*0.0001;
+                                dimension(n).data(z,j) = val;
                                 j=j+1;
                             end
                         end
