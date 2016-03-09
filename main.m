@@ -4,7 +4,7 @@ clear
 import pkg.*
 
 path = 'data\';
-file = 'WV5.csv';
+file = 'WV34.csv';
 filename = strcat(path, file);
 numPlanes = 0;
 numLines = 0;

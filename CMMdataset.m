@@ -18,15 +18,21 @@ classdef CMMdataset
                 case 'Y'    %make Y the dependant variable to plot
                     U = X;
                     V = Z;
-                    W = Y;    
+                    W = Y;
+                    uLabel = 'X (mm)';
+                    vLabel = 'Z (mm)';
                 case 'X'    %make X the dependant variable to plot
-                    U = Z;
-                    V = Y;
+                    U = Y;
+                    V = Z;
                     W = X;
+                    uLabel = 'Y (mm)';
+                    vLabel = 'Z (mm)';
                 otherwise   %make Z the default dependant variable to plot
                     U = X;
                     V = Y;
-                    W = Z;   
+                    W = Z;
+                    uLabel = 'X (mm)';
+                    vLabel = 'Y (mm)';
             end
             
             n = (max(U)-min(U))/res;
@@ -50,23 +56,22 @@ classdef CMMdataset
                 %Plot surface
                 set(gcf,'Renderer','painters')
                 surf(Xq, Yq, Zq);
-                title(Obj.name)
-                zlim(wRange)
             elseif strcmp(type,'contour')
                 %Plot contour
                 set(gcf,'Renderer','painters')
                 [s,p] = contourf(Xq, Yq, Zq, 30);
                 set(p, 'LineStyle', ':')
                 set(p, 'LineWidth', 0.1)
-                title(Obj.name)
-                zlim(wRange)
             else
                %Plot mesh
                 set(gcf,'Renderer','painters')
                 mesh(Xq, Yq, Zq);
-                title(Obj.name)
-                zlim(wRange) 
             end
+            
+            title(Obj.name)
+            zlim(wRange)
+            xlabel(uLabel)
+            ylabel(vLabel)
         end
         function output2D(Obj, dependent, independent)
             X = Obj.data(:,1);
